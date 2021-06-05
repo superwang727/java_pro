@@ -1,0 +1,37 @@
+####  application-dev.yml
+
+server:
+  port: 9008
+  address: 0.0.0.0
+
+spring:
+  profiles:
+    active: dev   # 环境设置
+
+  application:
+    name: service_edu_hah  # 服务名
+
+  datasource: # 数据库链接
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/edu?serverTimezone=GMT%2B8
+    username: root
+    password: root
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # mybatis日志
+
+#logging:
+#  level:
+#    root: DEBUG
+logging:
+  config: classpath:logback-spring.xml
