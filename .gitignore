@@ -21,6 +21,8 @@ target/
 *.ipr
 .mvn
 mvnw
+.mvn/wrapper
+log.path_IS_UNDEFINED
 
 ### NetBeans ###
 /nbproject/private/
