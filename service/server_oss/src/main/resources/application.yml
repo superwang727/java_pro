@@ -1,0 +1,26 @@
+####  application-dev.yml
+
+server:
+  port: 8120
+
+
+spring:
+  profiles:
+    active: dev   # 环境设置
+
+  application:
+    name: service_oss  # 服务名
+
+#logging:
+#  level:
+#    root: DEBUG
+logging:
+  config: classpath:logback-spring.xml
+
+
+aliyun:
+  oss:
+    endpoint: oss-cn-shanghai.aliyuncs.com
+    keyid: LTAI5tJmoqDwMhPu168ovPCk
+    keysecret: pYmC40StcjxDXvjEn3PrsJ5XqHKW28
+    bucketName: edu-zaixian-avatar

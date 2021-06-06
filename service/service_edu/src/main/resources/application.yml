@@ -2,7 +2,7 @@
 
 server:
   port: 9008
-  address: 0.0.0.0
+  #address: 0.0.0.0
 
 spring:
   profiles:
@@ -24,7 +24,8 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: localhost:8848
+
 
 mybatis-plus:
   configuration:
@@ -35,3 +36,4 @@ mybatis-plus:
 #    root: DEBUG
 logging:
   config: classpath:logback-spring.xml
+
