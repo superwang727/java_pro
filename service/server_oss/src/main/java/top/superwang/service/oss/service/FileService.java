@@ -1,6 +1,8 @@
 package top.superwang.service.oss.service;
 
+
 import java.io.InputStream;
+
 
 public interface FileService {
 

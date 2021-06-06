@@ -11,6 +11,12 @@ spring:
   application:
     name: service_oss  # 服务名
 
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+
 #logging:
 #  level:
 #    root: DEBUG

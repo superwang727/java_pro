@@ -5,12 +5,14 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.CannedAccessControlList;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import top.superwang.service.oss.service.FileService;
 import top.superwang.service.oss.util.OssProperties;
 
 import java.io.InputStream;
 import java.util.UUID;
 
+@Service
 public class FileServiceImpl implements FileService {
 
     @Autowired
