@@ -5,21 +5,25 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import top.superwang.common.base.result.R;
+import top.superwang.common.base.result.ResultCode;
+import top.superwang.service.base.exception.EduException;
 import top.superwang.service.oss.service.FileService;
 
-
-import java.io.IOException;
 import java.io.InputStream;
 
 @RestController
 @CrossOrigin
 @Api(tags = "阿里云文件管理")
 @RequestMapping("/admin/oss/file")
+@Slf4j
 public class FileController {
 
 
@@ -30,13 +34,19 @@ public class FileController {
     @ApiOperation("文件上传")
     @PostMapping("upload")
     public R upload(@ApiParam(value = "文件",required = true) @RequestParam("file") MultipartFile file,
-                    @ApiParam(value = "文件夹",required = true) @RequestParam("module") String module) throws IOException {
+                    @ApiParam(value = "文件夹",required = true) @RequestParam("module") String module)  {
 
-        InputStream inputStream = file.getInputStream();
-        String originalFilename = file.getOriginalFilename();
+        try {
+            InputStream inputStream = file.getInputStream();
+            String originalFilename = file.getOriginalFilename();
 
-        String fileUrl = fileService.upload(inputStream, module, originalFilename);
+            String fileUrl = fileService.upload(inputStream, module, originalFilename);
 
-        return R.ok().data("fileUrl",fileUrl);
+            return R.ok().data("fileUrl",fileUrl);
+        } catch (Exception e) {
+            log.error(ExceptionUtils.getMessage(e));
+            throw new EduException(ResultCode.UPLOAD_ERROR);
+        }
+
     }
 }

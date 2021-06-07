@@ -56,4 +56,9 @@ public class R {
         this.setMessage(message);
         return this;
     }
+
+    public R code(Integer code) {
+        this.setCode(code);
+        return this;
+    }
 }

@@ -11,7 +11,9 @@ public enum ResultCode {
 
     SUCCESS(true,20000,"成功"),
 
-    ERROR(false,20001,"失败");
+    ERROR(false,20001,"失败"),
+
+    UPLOAD_ERROR(false,21004,"文件上传失败");
 
 
     private Boolean success;

@@ -27,6 +27,6 @@ logging:
 aliyun:
   oss:
     endpoint: oss-cn-shanghai.aliyuncs.com
-    keyid: LTAI5tJmoqDwMhPu168ovPCk
+    keyid: LTAI5tJmoqDwMhPu168ovPCk==
     keysecret: pYmC40StcjxDXvjEn3PrsJ5XqHKW28
     bucketName: edu-zaixian-avatar
