@@ -12,6 +12,9 @@ import top.superwang.service.edu.mapper.TeacherMapper;
 import top.superwang.service.edu.service.TeacherService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 讲师 服务实现类
@@ -58,5 +61,15 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
 
         return baseMapper.selectPage(pageParams,teacherQueryWrapper);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectTeacherByName(String key) {
+        QueryWrapper<Teacher> teacherQueryWrapper = new QueryWrapper<>(); // 查询对象
+        teacherQueryWrapper.select("name");  // 查询name列
+        teacherQueryWrapper.likeRight("name",key);  // select name from edu_teacher where name like "王%";
+
+        List<Map<String, Object>> maps = baseMapper.selectMaps(teacherQueryWrapper);
+        return maps;
     }
 }

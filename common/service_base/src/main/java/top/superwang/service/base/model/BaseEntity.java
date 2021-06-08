@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
+
 
 import java.io.Serializable;
 import java.util.Date;

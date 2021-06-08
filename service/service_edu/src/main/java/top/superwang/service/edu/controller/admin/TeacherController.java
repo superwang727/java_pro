@@ -16,6 +16,7 @@ import top.superwang.service.edu.entity.vo.TeacherQueryVo;
 import top.superwang.service.edu.service.TeacherService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -64,7 +65,6 @@ public class TeacherController {
 
 
         boolean b = teacherService.removeById(id);
-
 
         if (b){
             return R.ok().message("删除成功！");
@@ -132,6 +132,37 @@ public class TeacherController {
             return R.error().message("数据不存在");
         }
     }
+
+
+
+    @ApiOperation(value = "根据列表删除老师",notes = "批量删除老师")
+    @DeleteMapping("batchRemoveTeachers")
+    public R batchRemoveByIds(@ApiParam(value = "老师id列表",readOnly = true) @RequestBody List<String> ids){
+
+
+        boolean b = teacherService.removeByIds(ids);
+
+        if (b){
+            return R.ok().message("删除成功！");
+        }else {
+            return R.error().message("删除失败！");
+        }
+
+    }
+
+
+    @ApiOperation(value = "根据姓名查老师",notes = "根据姓名查老师名字")
+    @DeleteMapping("findTeacherByName/name/{key}")
+    public R findTeacherByName(@ApiParam(value = "老师id列表",readOnly = true) @PathVariable String key){
+
+        // {"王":"王杰","王":"王结论"}
+
+        List<Map<String,Object>> nameList = teacherService.selectTeacherByName(key);
+
+        return R.ok().data("nameList",nameList);
+
+    }
+
 
 
 
