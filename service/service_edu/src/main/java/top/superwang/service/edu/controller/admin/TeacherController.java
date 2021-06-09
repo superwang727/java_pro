@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import top.superwang.common.base.result.R;
 import top.superwang.service.edu.entity.Teacher;
 import top.superwang.service.edu.entity.vo.TeacherQueryVo;
+import top.superwang.service.edu.feign.OssFileService;
 import top.superwang.service.edu.service.TeacherService;
 
 import java.util.List;
@@ -34,6 +35,10 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+
+
+    @Autowired
+    private OssFileService ossFileService;
 
 //    @ApiOperation("获取所有教师列表")
 //    @GetMapping("list")
@@ -152,7 +157,7 @@ public class TeacherController {
 
 
     @ApiOperation(value = "根据姓名查老师",notes = "根据姓名查老师名字")
-    @DeleteMapping("findTeacherByName/name/{key}")
+    @GetMapping("findTeacherByName/name/{key}")
     public R findTeacherByName(@ApiParam(value = "老师id列表",readOnly = true) @PathVariable String key){
 
         // {"王":"王杰","王":"王结论"}
@@ -164,6 +169,12 @@ public class TeacherController {
     }
 
 
+    @ApiOperation(value = "测试服务之间的调用")
+    @GetMapping("test")
+    public R test(){
+        ossFileService.test();
+        return R.ok();
+    }
 
 
 

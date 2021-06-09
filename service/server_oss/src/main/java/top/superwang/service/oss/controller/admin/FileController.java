@@ -49,4 +49,13 @@ public class FileController {
         }
 
     }
+    @ApiOperation(value = "测试")
+    @GetMapping("test")
+    public R test(){
+        log.info("oss  test 被调用");
+        return R.ok();
+    }
+
+
+
 }
