@@ -57,4 +57,31 @@ public class FileServiceImpl implements FileService {
         // https://edu-zaixian-avatar.oss-cn-shanghai.aliyuncs.com/avatar/default_handsome.jpg
         return "https://" + bucketName + "." + endpoint + "/" + key;
     }
+
+    @Override
+    public void removeAvatar(String url) {
+
+        String endpoint = ossProperties.getEndpoint();
+        String keyid = ossProperties.getKeyid();
+        String keysecret = ossProperties.getKeysecret();
+        String bucketName = ossProperties.getBucketName();
+
+
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, keyid, keysecret);
+
+
+        // 删除图片
+        // https://edu-zaixian-avatar.oss-cn-shanghai.aliyuncs.com/avatar/default_handsome.jpg
+
+        String prefixAvatar = "https://" + bucketName + "." + endpoint + "/";
+
+        String objectName =  url.substring(prefixAvatar.length());
+        ossClient.deleteObject(bucketName,objectName);
+
+        // 关闭OSSClient。
+        ossClient.shutdown();
+
+
+    }
 }

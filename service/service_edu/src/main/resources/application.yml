@@ -3,13 +3,16 @@
 server:
   port: 8110
   #address: 0.0.0.0
+  tomcat:
+    threads:
+      max: 10
 
 spring:
   profiles:
     active: dev   # 环境设置
 
   application:
-    name: service-edu_hah  # 服务名 (改成中划线，兼容nacos)
+    name: service-edu  # 服务名 (改成中划线，兼容nacos)
 
   datasource: # 数据库链接
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -45,4 +48,18 @@ logging:
 
 #server-oss:
 #  ribbon:
-#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
+      #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
+      #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
+      #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
+
+
+ribbon:
+  ConnectTimeout: 8000 #请求连接超时时间ms
+  ReadTimeout: 8000 #请求处理的超时时间ms
+#  OkToRetryOnAllOperations: true #对所有请求都进行重试
+  MaxAutoRetriesNextServer: 1 #切换实例的重试次数
+  MaxAutoRetries: 0 #对当前实例的重试次数
+
+

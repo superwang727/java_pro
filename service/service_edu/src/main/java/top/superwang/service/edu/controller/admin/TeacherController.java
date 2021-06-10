@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import top.superwang.service.edu.service.TeacherService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -31,6 +33,7 @@ import java.util.Map;
 @Api(tags = "讲师管理")
 @RestController
 @RequestMapping("/admin/edu/teacher")
+@Slf4j
 public class TeacherController {
 
     @Autowired
@@ -68,7 +71,10 @@ public class TeacherController {
     @DeleteMapping("remove/{id}")
     public R removeById(@ApiParam("老师id") @PathVariable String id){
 
+        // 删除头像
+//        teacherService.removeAvatarById(id);
 
+        // 删除老师
         boolean b = teacherService.removeById(id);
 
         if (b){
@@ -169,13 +175,24 @@ public class TeacherController {
     }
 
 
+
+
+
     @ApiOperation(value = "测试服务之间的调用")
     @GetMapping("test")
     public R test(){
         ossFileService.test();
+        log.info("edu执行成功");
         return R.ok();
     }
 
+    @ApiOperation(value = "测试并发")
+    @GetMapping("test_concurrent")
+    public R testConcurrent(){
+        log.info("并发执行");
+//        ossFileService.test();
+        return R.ok();
+    }
 
 
 

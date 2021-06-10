@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import top.superwang.common.base.result.R;
 import top.superwang.service.edu.entity.Teacher;
 import top.superwang.service.edu.entity.vo.TeacherQueryVo;
+import top.superwang.service.edu.feign.OssFileService;
 import top.superwang.service.edu.mapper.TeacherMapper;
 
 import top.superwang.service.edu.service.TeacherService;
@@ -25,6 +28,11 @@ import java.util.Map;
  */
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
+
+
+    @Autowired
+    private OssFileService ossFileService;
+
 
     @Override
     public IPage<Teacher> selectPage(Page<Teacher> pageParams, TeacherQueryVo teacherQueryVo) {
@@ -71,5 +79,23 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
         List<Map<String, Object>> maps = baseMapper.selectMaps(teacherQueryWrapper);
         return maps;
+    }
+
+    @Override
+    public boolean removeAvatarById(String id) {
+        // 根据id查到数据库的头像地址
+        Teacher teacher = baseMapper.selectById(id);
+
+        if (teacher != null){
+            String avatar = teacher.getAvatar();
+            if (!StringUtils.isEmpty(avatar)){
+                R r = ossFileService.removeAvatar(avatar);
+                return r.getSuccess();
+            }
+        }
+
+        return false;
+
+
     }
 }

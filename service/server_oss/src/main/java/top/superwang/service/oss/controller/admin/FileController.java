@@ -18,6 +18,7 @@ import top.superwang.service.base.exception.EduException;
 import top.superwang.service.oss.service.FileService;
 
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @CrossOrigin
@@ -49,10 +50,26 @@ public class FileController {
         }
 
     }
+
+
+    @ApiOperation(value = "删除头像")
+    @DeleteMapping("removeAvatar")
+    public R removeAvatar(
+            @ApiParam(value = "要删除的头像url",required = true)
+            @RequestBody String url){
+        fileService.removeAvatar(url);
+        return R.ok().message("文件删除成功");
+    }
+
     @ApiOperation(value = "测试")
     @GetMapping("test")
     public R test(){
         log.info("oss  test 被调用");
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return R.ok();
     }
 
