@@ -196,5 +196,16 @@ public class TeacherController {
 
 
 
+    @GetMapping("msg1")
+    public String message1(){
+        return "message1";
+    }
+
+    @GetMapping("msg2")
+    public String message2(){
+        return "message2";
+    }
+
+
 }
 

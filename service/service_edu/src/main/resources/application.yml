@@ -28,6 +28,10 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8081
 
 
 mybatis-plus:
@@ -63,3 +67,6 @@ ribbon:
   MaxAutoRetries: 0 #对当前实例的重试次数
 
 
+feign:
+  sentinel:
+    enabled: true
