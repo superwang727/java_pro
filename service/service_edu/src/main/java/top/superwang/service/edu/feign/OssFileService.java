@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import top.superwang.common.base.result.R;
+import top.superwang.service.edu.feign.fallback.OssFileServiceFallback;
 
-@FeignClient("service-oss")
+@FeignClient(value = "service-oss" , fallback = OssFileServiceFallback.class)
 public interface OssFileService {
 
     @GetMapping("/admin/oss/file/test")

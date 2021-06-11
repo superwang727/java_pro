@@ -77,8 +77,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         teacherQueryWrapper.select("name");  // 查询name列
         teacherQueryWrapper.likeRight("name",key);  // select name from edu_teacher where name like "王%";
 
-        List<Map<String, Object>> maps = baseMapper.selectMaps(teacherQueryWrapper);
-        return maps;
+        return baseMapper.selectMaps(teacherQueryWrapper);
     }
 
     @Override

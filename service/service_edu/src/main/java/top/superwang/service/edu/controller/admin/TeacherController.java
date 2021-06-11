@@ -72,7 +72,7 @@ public class TeacherController {
     public R removeById(@ApiParam("老师id") @PathVariable String id){
 
         // 删除头像
-//        teacherService.removeAvatarById(id);
+        teacherService.removeAvatarById(id);
 
         // 删除老师
         boolean b = teacherService.removeById(id);
