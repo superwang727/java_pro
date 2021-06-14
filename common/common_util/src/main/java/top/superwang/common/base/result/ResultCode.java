@@ -13,7 +13,9 @@ public enum ResultCode {
 
     ERROR(false,20001,"失败"),
 
-    UPLOAD_ERROR(false,21004,"文件上传失败");
+    UPLOAD_ERROR(false,21004,"文件上传失败"),
+
+    UPLOAD_EXCEL_ERROR(false,21006,"上传excel文件失败");
 
 
     private Boolean success;

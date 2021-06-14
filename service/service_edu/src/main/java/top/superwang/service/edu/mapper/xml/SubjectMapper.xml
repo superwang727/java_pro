@@ -2,4 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.superwang.service.edu.mapper.SubjectMapper">
 
+    <resultMap id="nestedSubject" type="top.superwang.service.edu.entity.vo.SubjectVo">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="sort" column="sort" />
+        <collection property="children" column="id" select="selectNestedDataById" ofType="top.superwang.service.edu.entity.vo.SubjectVo"/>
+    </resultMap>
+
+
+
+    <select id="selectNestedDataById" resultMap="nestedSubject">
+    select  id,sort,title from edu_subject where parent_id = #{parentId}
+    </select>
 </mapper>

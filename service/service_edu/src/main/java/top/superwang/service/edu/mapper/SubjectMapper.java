@@ -2,6 +2,9 @@ package top.superwang.service.edu.mapper;
 
 import top.superwang.service.edu.entity.Subject;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import top.superwang.service.edu.entity.vo.SubjectVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SubjectMapper extends BaseMapper<Subject> {
 
+    List<SubjectVo> selectNestedDataById(String parentId);
 }

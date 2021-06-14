@@ -51,6 +51,9 @@
         <canal.client.version>1.1.0</canal.client.version>
         <docker.image.prefix>zx</docker.image.prefix>
         <cloud-alibaba.version>0.2.2.RELEASE</cloud-alibaba.version>
+        <alibaba.easyexcel.version>2.1.7</alibaba.easyexcel.version>
+        <apache.xmlbeans.version>3.1.0</apache.xmlbeans.version>
+
     </properties>
 
 
@@ -180,6 +183,19 @@
                 <groupId>com.alibaba.otter</groupId>
                 <artifactId>canal.client</artifactId>
                 <version>${canal.client.version}</version>
+            </dependency>
+
+<!--            excel相关依赖-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${alibaba.easyexcel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.xmlbeans</groupId>
+                <artifactId>xmlbeans</artifactId>
+                <version>${apache.xmlbeans.version}</version>
             </dependency>
 
 
