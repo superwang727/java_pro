@@ -2,6 +2,7 @@ package top.superwang.service.edu.service;
 
 import top.superwang.service.edu.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
+import top.superwang.service.edu.entity.form.CourseInfoForm;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CourseService extends IService<Course> {
 
+    String saveCourseInfo(CourseInfoForm courseInfoForm);
 }

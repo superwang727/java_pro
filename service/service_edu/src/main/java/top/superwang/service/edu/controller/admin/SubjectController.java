@@ -58,7 +58,7 @@ public class SubjectController {
 
 
     @ApiOperation("嵌套课程数据")
-    @PostMapping("nested")
+    @GetMapping("nested")
     public R nestedList(){
 
         List<SubjectVo> subjects = subjectService.nestedSubjectData();
