@@ -2,6 +2,7 @@ package top.superwang.service.edu.service.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import top.superwang.service.edu.entity.Course;
 import top.superwang.service.edu.entity.CourseDescription;
 import top.superwang.service.edu.entity.form.CourseInfoForm;
@@ -25,6 +26,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Autowired
     private CourseDescriptionMapper courseDescriptionMapper;
 
+
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public String saveCourseInfo(CourseInfoForm courseInfoForm) {
 
@@ -36,7 +39,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         // 保存课程的描述
         CourseDescription courseDescription = new CourseDescription();
-        courseDescription.setDescription(courseDescription.getDescription());
+        courseDescription.setDescription(courseInfoForm.getDescription());
         courseDescription.setId(course.getId());   // 上面主键回填了，这里才能获取到id
         courseDescriptionMapper.insert(courseDescription);
 
