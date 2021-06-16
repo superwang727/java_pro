@@ -15,4 +15,8 @@ import top.superwang.service.edu.entity.form.CourseInfoForm;
 public interface CourseService extends IService<Course> {
 
     String saveCourseInfo(CourseInfoForm courseInfoForm);
+
+    CourseInfoForm getCourseInfoById(String id);
+
+    void updateCourseInfoById(CourseInfoForm courseInfoForm);
 }

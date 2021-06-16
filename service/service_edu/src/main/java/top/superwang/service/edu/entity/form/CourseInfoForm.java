@@ -25,7 +25,7 @@ public class CourseInfoForm implements Serializable {
     @ApiModelProperty(value = "课程讲师ID")
     private String teacherId;
 
-    @ApiModelProperty(value = "课程专业ID")
+    @ApiModelProperty(value = "课程专业二级分类ID")
     private String subjectId;
 
     @ApiModelProperty(value = "课程专业父级ID")
@@ -45,4 +45,6 @@ public class CourseInfoForm implements Serializable {
 
     @ApiModelProperty(value = "课程简介")
     private String description;
+
+
 }
