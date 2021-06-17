@@ -60,7 +60,7 @@ public class CourseController {
     }
 
     @ApiOperation("根据id修改课程信息")
-    @PutMapping("update-course-info/{id}")
+    @PutMapping("update-course-info")
     public R updateCourseById(@ApiParam(value = "课程对象", required = true)
                                   @RequestBody CourseInfoForm courseInfoForm){
 
