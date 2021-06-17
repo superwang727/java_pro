@@ -88,7 +88,7 @@ public class TeacherController {
     @ApiOperation("讲师信息分页")
     @GetMapping("listPage/{page}/{limit}")
     public R listPage(@ApiParam(value = "当前页码",required = true) @PathVariable Long page,
-                      @ApiParam(value = "每页多少数据", readOnly = true) @PathVariable Long limit,
+                      @ApiParam(value = "每页多少数据", required = true) @PathVariable Long limit,
                       @ApiParam("查询对象")TeacherQueryVo teacherQueryVo){
 
         // 新建个Page对象，接收当前页和当前数据

@@ -1,6 +1,8 @@
 package top.superwang.service.edu.controller.admin;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -10,8 +12,14 @@ import org.springframework.web.bind.annotation.*;
 
 import top.superwang.common.base.result.R;
 import top.superwang.service.edu.entity.Course;
+import top.superwang.service.edu.entity.Teacher;
 import top.superwang.service.edu.entity.form.CourseInfoForm;
+import top.superwang.service.edu.entity.vo.CourseQueryVo;
+import top.superwang.service.edu.entity.vo.CourseVo;
+import top.superwang.service.edu.entity.vo.TeacherQueryVo;
 import top.superwang.service.edu.service.CourseService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -67,6 +75,28 @@ public class CourseController {
         courseService.updateCourseInfoById(courseInfoForm);
 
         return R.ok().message("更新成功");
+
+    }
+
+
+
+
+    @ApiOperation("课程信息分页")
+    @GetMapping("listPage/{page}/{limit}")
+    public R listPage(@ApiParam(value = "当前页码",required = true) @PathVariable Long page,
+                      @ApiParam(value = "每页多少数据", required = true) @PathVariable Long limit,
+                      @ApiParam("查询对象") CourseQueryVo courseQueryVo){
+
+
+        IPage<CourseVo> pageModel = courseService.selectPage(page, limit, courseQueryVo);
+
+        List<CourseVo> records = pageModel.getRecords(); // 当前数据
+
+        long total = pageModel.getTotal();  // 总页码
+
+        return R.ok().data("totals",total).data("datalist",records);
+
+
 
     }
 

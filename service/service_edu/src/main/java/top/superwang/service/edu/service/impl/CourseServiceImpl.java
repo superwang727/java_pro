@@ -1,16 +1,24 @@
 package top.superwang.service.edu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import top.superwang.service.edu.entity.Course;
 import top.superwang.service.edu.entity.CourseDescription;
 import top.superwang.service.edu.entity.form.CourseInfoForm;
+import top.superwang.service.edu.entity.vo.CourseQueryVo;
+import top.superwang.service.edu.entity.vo.CourseVo;
 import top.superwang.service.edu.mapper.CourseDescriptionMapper;
 import top.superwang.service.edu.mapper.CourseMapper;
 import top.superwang.service.edu.service.CourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -80,4 +88,46 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         courseDescriptionMapper.updateById(courseDescription);
 
     }
+
+    @Override
+    public IPage<CourseVo> selectPage(Long page, Long limit, CourseQueryVo courseQueryVo) {
+
+        // 组装查询条件
+        QueryWrapper<CourseVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("c.gmt_create");  //排序
+
+        String title = courseQueryVo.getTitle();
+        String teacherId = courseQueryVo.getTeacherId();
+        String subjectParentId = courseQueryVo.getSubjectParentId();
+        String subjectId = courseQueryVo.getSubjectId();
+
+        if (!StringUtils.isEmpty(title)) {
+            queryWrapper.like("c.title", title);
+        }
+
+        if (!StringUtils.isEmpty(teacherId) ) {
+            queryWrapper.eq("c.teacher_id", teacherId);
+        }
+
+        if (!StringUtils.isEmpty(subjectParentId)) {
+            queryWrapper.eq("c.subject_parent_id", subjectParentId);
+        }
+
+        if (!StringUtils.isEmpty(subjectId)) {
+            queryWrapper.eq("c.subject_id", subjectId);
+        }
+
+        // 组装分页
+        Page<CourseVo> pageParams = new Page<>(page, limit);
+        // 这个分页参数传进去是为了在sql最后插入个分页，传入就行，mp自动执行
+        List<CourseVo> records =  baseMapper.selectPageByQueryvo(pageParams,queryWrapper);
+
+        pageParams.setRecords(records); // 查询下total数据
+
+        return pageParams;
+
+
+    }
+
+
 }
