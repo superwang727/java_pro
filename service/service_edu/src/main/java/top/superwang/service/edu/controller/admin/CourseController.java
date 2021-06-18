@@ -96,9 +96,28 @@ public class CourseController {
 
         return R.ok().data("totals",total).data("datalist",records);
 
+    }
 
+
+    @ApiOperation(value = "根据id删除课程",notes = "输入一个id，然后删！")
+    @DeleteMapping("remove/{id}")
+    public R removeById(@ApiParam("课程id") @PathVariable String id){
+
+        // 删除封面
+        courseService.removeCoverById(id);
+
+        // 删除课程
+        boolean b = courseService.removeCourseById(id);
+
+        if (b){
+            return R.ok().message("删除成功！");
+        }else {
+            return R.error().message("删除失败！");
+        }
 
     }
+
+
 
 
 

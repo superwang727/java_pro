@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import top.superwang.common.base.result.R;
 import top.superwang.service.edu.feign.fallback.OssFileServiceFallback;
 
-@FeignClient(value = "service-oss" , fallback = OssFileServiceFallback.class)
+@FeignClient(value = "service-oss" , fallback = OssFileServiceFallback.class) // fallback备胎
 public interface OssFileService {
 
     @GetMapping("/admin/oss/file/test")

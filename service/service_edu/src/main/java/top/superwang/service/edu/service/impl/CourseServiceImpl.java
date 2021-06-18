@@ -6,12 +6,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
+import top.superwang.common.base.result.R;
 import top.superwang.service.edu.entity.Course;
 import top.superwang.service.edu.entity.CourseDescription;
+import top.superwang.service.edu.entity.Teacher;
 import top.superwang.service.edu.entity.form.CourseInfoForm;
 import top.superwang.service.edu.entity.vo.CourseQueryVo;
 import top.superwang.service.edu.entity.vo.CourseVo;
+import top.superwang.service.edu.feign.OssFileService;
 import top.superwang.service.edu.mapper.CourseDescriptionMapper;
 import top.superwang.service.edu.mapper.CourseMapper;
 import top.superwang.service.edu.service.CourseService;
@@ -33,6 +37,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private CourseDescriptionMapper courseDescriptionMapper;
+
+
+    @Qualifier("ossFileServiceFallback")
+    @Autowired
+    private OssFileService ossFileService;
+
 
 
     @Transactional(rollbackFor = Exception.class)
@@ -127,6 +137,27 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return pageParams;
 
 
+    }
+
+    @Override
+    public boolean removeCoverById(String id) {
+        // 根据id查到数据库的封面地址
+        Course course = baseMapper.selectById(id);
+
+        if (course != null){
+            String cover = course.getCover();
+            if (!org.apache.commons.lang.StringUtils.isEmpty(cover)){
+                R r = ossFileService.removeAvatar(cover);
+                return r.getSuccess();
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean removeCourseById(String id) {
+        return false;
     }
 
 
