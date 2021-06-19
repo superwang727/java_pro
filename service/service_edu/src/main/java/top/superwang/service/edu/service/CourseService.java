@@ -2,10 +2,12 @@ package top.superwang.service.edu.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.stereotype.Repository;
 import top.superwang.service.edu.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
 import top.superwang.service.edu.entity.Teacher;
 import top.superwang.service.edu.entity.form.CourseInfoForm;
+import top.superwang.service.edu.entity.vo.CoursePublishVo;
 import top.superwang.service.edu.entity.vo.CourseQueryVo;
 import top.superwang.service.edu.entity.vo.CourseVo;
 
@@ -17,6 +19,7 @@ import top.superwang.service.edu.entity.vo.CourseVo;
  * @author wangw
  * @since 2021-04-18
  */
+@Repository
 public interface CourseService extends IService<Course> {
 
     String saveCourseInfo(CourseInfoForm courseInfoForm);
@@ -30,4 +33,8 @@ public interface CourseService extends IService<Course> {
     boolean removeCoverById(String id);
 
     boolean removeCourseById(String id);
+
+    CoursePublishVo getCoursePublishVoById(String id);
+
+    boolean patchPublishCourseById(String id);
 }

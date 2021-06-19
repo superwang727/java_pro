@@ -1,5 +1,6 @@
 package top.superwang.service.edu.service;
 
+import org.springframework.stereotype.Repository;
 import top.superwang.service.edu.entity.Chapter;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author wangw
  * @since 2021-04-18
  */
+@Repository
 public interface ChapterService extends IService<Chapter> {
 
 }

@@ -9,15 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 import top.superwang.common.base.result.R;
-import top.superwang.service.edu.entity.Course;
-import top.superwang.service.edu.entity.CourseDescription;
-import top.superwang.service.edu.entity.Teacher;
+import top.superwang.service.edu.entity.*;
 import top.superwang.service.edu.entity.form.CourseInfoForm;
+import top.superwang.service.edu.entity.vo.CoursePublishVo;
 import top.superwang.service.edu.entity.vo.CourseQueryVo;
 import top.superwang.service.edu.entity.vo.CourseVo;
 import top.superwang.service.edu.feign.OssFileService;
-import top.superwang.service.edu.mapper.CourseDescriptionMapper;
-import top.superwang.service.edu.mapper.CourseMapper;
+import top.superwang.service.edu.mapper.*;
 import top.superwang.service.edu.service.CourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -39,9 +37,23 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private CourseDescriptionMapper courseDescriptionMapper;
 
 
-    @Qualifier("ossFileServiceFallback")
     @Autowired
     private OssFileService ossFileService;
+
+
+    @Autowired
+    private VideoMapper videoMapper;
+
+    @Autowired
+    private ChapterMapper chapterMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
+
+    @Autowired
+    private CourseCollectMapper courseCollectMapper;
+
+
 
 
 
@@ -157,7 +169,53 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public boolean removeCourseById(String id) {
-        return false;
+
+        //收藏信息：course_collect
+        QueryWrapper<CourseCollect> courseCollectQueryWrapper = new QueryWrapper<>();
+        courseCollectQueryWrapper.eq("course_id", id);
+        courseCollectMapper.delete(courseCollectQueryWrapper);
+
+        //评论信息：comment
+        QueryWrapper<Comment> commentQueryWrapper = new QueryWrapper<>();
+        commentQueryWrapper.eq("course_id", id);
+        commentMapper.delete(commentQueryWrapper);
+
+        //课时信息：video
+        QueryWrapper<Video> videoQueryWrapper = new QueryWrapper<>();
+        videoQueryWrapper.eq("course_id", id);
+        videoMapper.delete(videoQueryWrapper);
+
+        //章节信息：chapter
+        QueryWrapper<Chapter> chapterQueryWrapper = new QueryWrapper<>();
+        chapterQueryWrapper.eq("course_id", id);
+        chapterMapper.delete(chapterQueryWrapper);
+
+        //课程详情：course_description
+        courseDescriptionMapper.deleteById(id);
+
+        //课程信息：course
+        return this.removeById(id);
+
+
+    }
+
+    @Override
+    public CoursePublishVo getCoursePublishVoById(String id) {
+
+        return baseMapper.selectPublishById(id);
+    }
+
+    @Override
+    public boolean patchPublishCourseById(String id) {
+
+        Course course = new Course();
+
+        course.setId(id);
+        course.setStatus(Course.COURSE_NORMAL);
+
+        return this.updateById(course);
+
+
     }
 
 

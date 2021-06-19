@@ -14,6 +14,7 @@ import top.superwang.common.base.result.R;
 import top.superwang.service.edu.entity.Course;
 import top.superwang.service.edu.entity.Teacher;
 import top.superwang.service.edu.entity.form.CourseInfoForm;
+import top.superwang.service.edu.entity.vo.CoursePublishVo;
 import top.superwang.service.edu.entity.vo.CourseQueryVo;
 import top.superwang.service.edu.entity.vo.CourseVo;
 import top.superwang.service.edu.entity.vo.TeacherQueryVo;
@@ -115,6 +116,37 @@ public class CourseController {
             return R.error().message("删除失败！");
         }
 
+    }
+
+    @ApiOperation("根据ID获取课程发布信息")
+    @GetMapping("course-publish/{id}")
+    public R getCoursePublishVoById(
+            @ApiParam(value = "课程ID", required = true)
+            @PathVariable String id){
+
+        CoursePublishVo coursePublishVo = courseService.getCoursePublishVoById(id);
+        if (coursePublishVo != null) {
+            return R.ok().data("datalist", coursePublishVo);
+        } else {
+            return R.error().message("数据不存在");
+        }
+    }
+
+
+
+    @ApiOperation("根据课程id发布课程")
+    @PutMapping("put-publish-course/{id}")
+    public R putPublishCourseById(
+            @ApiParam(value = "课程id",required = true)
+            @PathVariable String id
+    ){
+        boolean b = courseService.patchPublishCourseById(id);
+
+        if (b){
+            return R.ok().message("发布成功");
+        }else {
+            return R.error().message("发布失败");
+        }
     }
 
 

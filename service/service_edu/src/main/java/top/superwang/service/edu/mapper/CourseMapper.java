@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 import top.superwang.service.edu.entity.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import top.superwang.service.edu.entity.vo.CoursePublishVo;
 import top.superwang.service.edu.entity.vo.CourseVo;
 
 import java.util.List;
@@ -25,5 +26,5 @@ public interface CourseMapper extends BaseMapper<Course> {
             @Param(Constants.WRAPPER) QueryWrapper<CourseVo> queryWrapper);
 
 
-
+    CoursePublishVo selectPublishById(String id);
 }
