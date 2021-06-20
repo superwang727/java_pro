@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import top.superwang.common.base.result.R;
 import top.superwang.service.edu.entity.Teacher;
 import top.superwang.service.edu.entity.vo.TeacherQueryVo;
@@ -30,6 +31,7 @@ import java.util.Map;
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
 
 
+    @Qualifier("top.superwang.service.edu.feign.OssFileService")
     @Autowired
     private OssFileService ossFileService;
 

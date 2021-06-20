@@ -37,6 +37,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private CourseDescriptionMapper courseDescriptionMapper;
 
 
+    @Qualifier("top.superwang.service.edu.feign.OssFileService")
     @Autowired
     private OssFileService ossFileService;
 

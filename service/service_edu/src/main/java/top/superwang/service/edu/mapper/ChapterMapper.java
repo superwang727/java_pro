@@ -1,5 +1,6 @@
 package top.superwang.service.edu.mapper;
 
+import org.springframework.stereotype.Repository;
 import top.superwang.service.edu.entity.Chapter;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author wangw
  * @since 2021-04-18
  */
+@Repository
 public interface ChapterMapper extends BaseMapper<Chapter> {
 
 }

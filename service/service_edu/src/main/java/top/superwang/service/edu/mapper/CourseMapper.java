@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import top.superwang.service.edu.entity.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import top.superwang.service.edu.entity.vo.CoursePublishVo;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author wangw
  * @since 2021-04-18
  */
+@Repository
 public interface CourseMapper extends BaseMapper<Course> {
 
     List<CourseVo> selectPageByQueryvo(
