@@ -86,6 +86,10 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
                 if (chapter.getId().equals(video.getChapterId())){
                     VideoVo videoVo = new VideoVo();
                     BeanUtils.copyProperties(video,videoVo);
+
+                     // BeanUtils遇到布尔值会失效,坑!
+                    videoVo.setFree(video.getIsFree());
+
                     videoVoList.add(videoVo);
                 }
             }
