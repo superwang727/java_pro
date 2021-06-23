@@ -21,7 +21,7 @@ import top.superwang.service.edu.service.VideoService;
  * @since 2021-04-18
  */
 @CrossOrigin
-@Api(description = "课时管理")
+@Api(tags = "课时管理")
 @RestController
 @RequestMapping("/admin/edu/video")
 @Slf4j
@@ -66,8 +66,6 @@ public class VideoController {
             @RequestBody Video video){
 
         boolean result = videoService.updateById(video);
-
-
 
         System.out.println(">>>" + result + "<<<");
         if (result) {
